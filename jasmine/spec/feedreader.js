@@ -27,10 +27,8 @@ $(function () {
         });
 
 
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a URL defined
-         * and that the URL is not empty.
-         */
+        /* ensures it has a URL defined
+        and that the URL is not empty.*/
 
         it('url defined', function () {
             for (const feed of allFeeds) {
@@ -39,11 +37,8 @@ $(function () {
             }
         });
 
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a name defined
-         * and that the name is not empty.
-         */
-
+        /* ensures it has a name defined
+         and that the name is not empty.*/
         it('name defined', function () {
             for (const feed of allFeeds) {
                 expect(feed.name).toBeDefined();
@@ -140,26 +135,22 @@ $(function () {
 
     describe('New Feed Selection', function () {
 
-        let firstFeedContent = [];
-        let seconedFeedContent = [];
+        let feedAfterFirstLoad;
+        let feedAfterSecondLoad;
 
         beforeEach(function (done) {
-            // Load the first feed index of 0
             loadFeed(0, function () {
-                firstFeedContent = document.querySelector('.feed');
-            });
-
-            // Load the seconed feed index of 1
-            loadFeed(1, function () {
-                seconedFeedContent = document.querySelector('.feed');
-                done();
-            });
-
-        });
+                feedAfterFirstLoad = document.querySelector('.feed').innerHTML;
+                loadFeed(1, function () {
+                    feedAfterSecondLoad = document.querySelector('.feed').innerHTML;
+                    done();
+                })
+            })
+        })
 
         it('content changes correctly', function () {
             //compare 2 feeds
-            expect(firstFeedContent).not.toEqual(seconedFeedContent)
+            expect(feedAfterFirstLoad).not.toEqual(feedAfterSecondLoad)
         });
 
     });
